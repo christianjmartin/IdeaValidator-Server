@@ -88,7 +88,7 @@ def check_harm(handler, new_message):
 
     return False
 
-# first message pair + last 5000 token - len(pair)
+# first message pair + last 5000 token - len(first message pair)
 def format_context(context, max_tokens=5000, model="gpt-4o"):
     encoding = tiktoken.encoding_for_model(model)
 
