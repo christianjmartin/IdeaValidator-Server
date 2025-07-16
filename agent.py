@@ -1,4 +1,5 @@
 from langchain_openai import ChatOpenAI
+# from langchain_anthropic import ChatAnthropic
 from langchain.agents import initialize_agent, AgentType
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain_core.runnables import RunnableConfig
@@ -134,10 +135,18 @@ def run_agent_streaming(new_message, context):
         callbacks=[handler],
     )
 
+    # llm = ChatAnthropic(
+    #     model=your-model-here
+    #     temperature=0,
+    #     streaming=True,
+    #     callbacks=[handler],
+    # )
+
     agent = initialize_agent(
         tools=tools,
         llm=llm,
         agent=AgentType.OPENAI_FUNCTIONS,
+        # agent=your-agentType-here
         verbose=True,
     )
 
