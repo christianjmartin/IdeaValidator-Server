@@ -1,5 +1,4 @@
 from langchain_openai import ChatOpenAI
-# from langchain_anthropic import ChatAnthropic
 from langchain.agents import initialize_agent, AgentType
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain_core.runnables import RunnableConfig
@@ -118,7 +117,6 @@ def format_context(context, max_tokens=5000, model="gpt-4o"):
         trimmed.insert(0, msg)
         total_tokens += token_count
 
-    # print(first_pair + trimmed)
     return first_pair + trimmed
 
 def run_agent_streaming(new_message, context):
@@ -135,25 +133,16 @@ def run_agent_streaming(new_message, context):
         callbacks=[handler],
     )
 
-    # llm = ChatAnthropic(
-    #     model=your-model-here
-    #     temperature=0,
-    #     streaming=True,
-    #     callbacks=[handler],
-    # )
-
     agent = initialize_agent(
         tools=tools,
         llm=llm,
         agent=AgentType.OPENAI_FUNCTIONS,
-        # agent=your-agentType-here
         verbose=True,
     )
 
     trimmed_context = format_context(context)
     system_prompt = get_system_prompt()
     prompt = [system_prompt] + trimmed_context + [{"role": "user", "content": new_message.strip()}]
-    # print(prompt)
 
     def run():
         try:
